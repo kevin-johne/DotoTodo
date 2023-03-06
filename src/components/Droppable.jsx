@@ -1,7 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
 
-export const Dropable = function ({ onDrop, children }) {
-  const [ref, isOver, droppedItem, reset] = useDropable();
+const Container = styled.div`
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  transform: translateY(-50%);
+  background-color: ${props => props.isOver && "lightblue"};
+`;
+
+export const Droppable = function ({ onDrop, children }) {
+  const [ref, isOver, droppedItem, reset] = useDroppable();
 
   useEffect(() => {
     if (droppedItem) {
@@ -14,13 +23,13 @@ export const Dropable = function ({ onDrop, children }) {
   }, [droppedItem, onDrop, reset]);
 
   return (
-    <div ref={ref} style={{ backgroundColor: isOver ? "green" : "grey" }}>
+    <Container ref={ref} isOver={isOver}>
       {children}
-    </div>
+    </Container>
   );
 };
 
-export const useDropable = () => {
+export const useDroppable = () => {
   const dropZone = useRef(null);
   const [isOver, setIsOver] = useState(false);
   const [droppedItem, setDroppedItem] = useState(null);

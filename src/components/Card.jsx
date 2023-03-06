@@ -1,4 +1,6 @@
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { AppContext } from "../context";
 const Container = styled.div`
   display: flex;
   padding: 10px;
@@ -23,7 +25,9 @@ const Label = styled.label`
   align-self: center;
 `;
 
-export const Card = function ({ toggle, move, item }) {
+export const Card = function ({ move, item }) {
+  const {toggle} = useContext(AppContext);
+
   return (
     <Container>
       <Label>
