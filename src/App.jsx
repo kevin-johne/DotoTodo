@@ -54,10 +54,13 @@ export const App = function () {
 
   return (
     <AppContext.Provider value={contextValue}>
-      <div className="App">
-        <h1>A To Do App with drag and drop</h1>
-        <List heading="List of Frameworks" items={backlogItems}/>
-        <List heading="Learned" items={doneItems}/>
+      <div className="app">
+        <h1>A To Do App <br/><span className="subtitle">with drag and drop</span> </h1>
+        
+        <div className="row">
+          <List heading="List of Frameworks" items={backlogItems}/>
+          <List heading="Learned" items={doneItems}/>
+        </div>
       </div>
     </AppContext.Provider>
   );

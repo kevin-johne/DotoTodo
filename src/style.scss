@@ -1,3 +1,7 @@
+$effect-color: #fcf78c;
+$primary-color: #283345;
+$secondary-color: #7973fe;
+
 * {
   box-sizing: border-box;
 }
@@ -7,29 +11,83 @@ html, body {
   padding: 0;
 }
 
+html {
+  font-size: 20px;
+}
+
+.app {
+  background-color: $effect-color;
+  color: $primary-color;
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  line-height: 0.5;
+}
+
+.subtitle {
+  font-size: large;
+  font-style: italic;
+  font-weight: 200;
+}
+
 .card {
   display: flex;
   padding: 10px;
-  background-color: lightblue;
-  border: solid 1px blue;
+  color: white;
+  background-color: $secondary-color;
+  border: solid 1px $primary-color;
   margin: 10px;
 
   &:hover {
-    box-shadow: 1px 1px 8px black;
+    box-shadow: 1px 1px 8px $primary-color;
   }
 
   input {
     margin-right: 20px;
+    cursor: pointer;
+    clip:rect(0,0,0,0);
+    position: absolute;
   }
+
+  input:checked + label {
+    text-decoration: line-through;
+  };
 
   label {
     align-self: center;
+    font-weight: bold;
+    cursor: pointer;
   }
 
   .navigation {
     margin-left: auto;
+
+    button {
+      border: none;
+      appearance: none;
+      background-color: transparent;
+      width: 30px;
+      height: 30px;
+      font-size: larger;
+      cursor: pointer;
+      
+      &:first-child {
+        margin-right: 10px;
+      }
+    }
   }
-  
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));;
+}
+
+.list {
+  position: relative;
 }
 
 .droppable {

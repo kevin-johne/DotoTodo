@@ -1,22 +1,25 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context";
 
-export const Card = function ({ move, item }) {
+export const Card = function ({ up, down,item }) {
   const {toggle} = useContext(AppContext);
 
+  const startHue = 280;
+  const hue = startHue - item.pos * 10;
   return (
-    <div className="card">
-      <label>
-        <input
-          type="checkbox"
-          onClick={() => toggle(item)}
-          defaultChecked={item.checked}
-        />
+    <div className="card" style={{backgroundColor: `hsl(${hue}, 100%, 72%)`}}>
+      <input
+        type="checkbox"
+        id={item.name}
+        onClick={() => toggle(item)}
+        defaultChecked={item.checked}
+      />
+      <label htmlFor={item.name}>
         {item.name}
       </label>
       <div className="navigation">
-        <button onClick={() => move(item.pos, item.pos - 1)}>▲</button>
-        <button onClick={() => move(item.pos, item.pos + 1)}>▼</button>
+        <button onClick={up}>👍</button>
+        <button onClick={down}>👎</button>
       </div>
     </div>
   );
