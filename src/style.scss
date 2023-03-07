@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  padding: 10px;
+  background-color: lightblue;
+  border: solid 1px blue;
+  margin: 10px;
+
+  &:hover {
+    box-shadow: 1px 1px 8px black;
+  }
+
+  input {
+    margin-right: 20px;
+  }
+
+  label {
+    align-self: center;
+  }
+
+  .navigation {
+    margin-left: auto;
+  }
+  
+}
+
+.droppable {
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  transform: translateY(-50%);
+}
