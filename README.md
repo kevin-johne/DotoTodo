@@ -19,7 +19,6 @@ I hope to cover the following frontend rendering frameworks:
 
 Some questions I will ask myself when comparing the implementation of the same solution in different libraries.
 *Buisness problems:*
-- How easy is it to write code aka, how hard is the lurning curve.
 - How is the performance from an SEO point of view.
 - How is the performance from a User point of view.
 
@@ -27,8 +26,12 @@ Some questions I will ask myself when comparing the implementation of the same s
 - How well does it fit with styling isolated components.
 - How well does it do media queries.
 - How well does it do animations.
+- Are most of the common problems already solved in that ecosystem?
+- What options are there for styling.
+- How can the app be tested.
+
+*Dev Experience:*
+- How easy is it to write code aka, how hard is the lurning curve.
 - How easy is it to read code.
-
-
-
-
+- How are the learning resources.
+- Does it come with a CLI to boost bootstrapping.
