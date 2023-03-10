@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { AppContext } from "../context";
+import { AppContext } from "../store/context";
+import { dispatchToggle } from "../store/store";
 
 export const Card = function ({ up, down,item }) {
-  const {toggle} = useContext(AppContext);
+  const {dispatch} = useContext(AppContext);
 
   const startHue = 280;
   const hue = startHue - item.pos * 10;
@@ -11,7 +12,7 @@ export const Card = function ({ up, down,item }) {
       <input
         type="checkbox"
         id={item.name}
-        onClick={() => toggle(item)}
+        onClick={() => dispatch(dispatchToggle(item.pos))}
         defaultChecked={item.checked}
       />
       <label htmlFor={item.name}>
