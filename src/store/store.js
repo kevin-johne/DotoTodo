@@ -1,3 +1,34 @@
+
+export const initState = {
+  todos: [
+    {
+      checked: true,
+      name: "React",
+      pos: 0,
+    },
+    {
+      checked: false,
+      name: "Angular",
+      pos: 1,
+    },
+    {
+      checked: false,
+      name: "Svelte",
+      pos: 2,
+    },
+    {
+      checked: false,
+      name: "Vue",
+      pos: 3,
+    },
+    {
+      checked: false,
+      name: "Qwik",
+      pos: 4,
+    },
+  ],
+};
+
 /**
  * Generic move an item up or down within a list,
  * receives the current position and a target position the item should be next;
@@ -9,6 +40,10 @@ function move(state, currentPos, targetPos) {
   let todos = [...state.todos];
   const currentItem = todos[currentPos];
   let index = targetPos > currentPos ? 0 : todos.length - 1;
+
+  if(currentPos === targetPos) {
+    return state;
+  }
 
   for (; index < todos.length && index >= 0; ) {
     const nextItem = todos[index];
@@ -65,6 +100,12 @@ function toggle(state, currentPos) {
   };
 }
 
+/**
+ * add a new item to the end of the list
+ * @param {object} state 
+ * @param {string} name 
+ * @returns 
+ */
 function add(state, name) {
   return {
     ...state,
@@ -79,35 +120,25 @@ function add(state, name) {
   };
 }
 
-export const initState = {
-  todos: [
-    {
-      checked: true,
-      name: "React",
-      pos: 0,
-    },
-    {
-      checked: false,
-      name: "Angular",
-      pos: 1,
-    },
-    {
-      checked: false,
-      name: "Svelte",
-      pos: 2,
-    },
-    {
-      checked: false,
-      name: "Vue",
-      pos: 3,
-    },
-    {
-      checked: false,
-      name: "Qwik",
-      pos: 4,
-    },
-  ],
-};
+/**
+ * removes the item from the list
+ * @param {object} state 
+ * @param {number} pos 
+ * @returns 
+ */
+function remove(state, pos) {
+  const copy = [...state.todos];
+  copy.splice(pos, 1);
+
+  for(let index = pos; index < copy.length; index++) {
+    copy[index].pos = copy[index].pos - 1;
+  }
+
+  return {
+    ...state,
+    todos: copy
+  }
+}
 
 export function dispatchMove(currentPostion, newPosition) {
   return {
@@ -137,6 +168,15 @@ export function dispatchAdd(name) {
   };
 }
 
+export function dispatchRemove(pos) {
+  return {
+    type: "remove",
+    payload: {
+      pos
+    }
+  }
+}
+
 export function reducer(state, action) {
   if (action.type === "move") {
     return move(
@@ -150,6 +190,9 @@ export function reducer(state, action) {
   }
   if (action.type === "add") {
     return add(state, action.payload.name);
+  }
+  if(action.type === "remove") {
+    return remove(state, action.payload.pos);
   }
   return state;
 }

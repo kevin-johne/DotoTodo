@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { AppContext } from "../store/context";
-import { dispatchToggle } from "../store/store";
+import { dispatchRemove, dispatchToggle } from "../store/store";
 import { getHueByPos } from "../hue";
 
 export const Card = function ({ up, down,item }) {
   const {dispatch} = useContext(AppContext);
+
+  function onRemove() {
+    dispatch(dispatchRemove(item.pos));
+  }
 
   return (
     <div className="card" style={{backgroundColor: `hsl(${getHueByPos(item.pos)}, 100%, 72%)`}}>
@@ -20,6 +24,7 @@ export const Card = function ({ up, down,item }) {
       <div className="navigation">
         <button onClick={up}>👍</button>
         <button onClick={down}>👎</button>
+        <button onClick={onRemove}>👋</button>
       </div>
     </div>
   );
