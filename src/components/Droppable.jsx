@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { getHueByPos } from "../hue";
 
 export const Droppable = function ({ onDrop, children, backgroundColor }) {
   const [ref, isOver, droppedItem, reset] = useDroppable();
@@ -7,7 +6,7 @@ export const Droppable = function ({ onDrop, children, backgroundColor }) {
   const styled = {
     backgroundColor: isOver ? backgroundColor : "",
   };
-  
+
   useEffect(() => {
     if (droppedItem) {
       onDrop(droppedItem);

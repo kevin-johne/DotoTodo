@@ -33,6 +33,26 @@ h1 {
   font-weight: 200;
 }
 
+input[type="text"] {
+  border: 0;
+  border-bottom: solid 1px $primary-color;
+  line-height: 2rem;
+  font-size: larger;
+  background-color: transparent;
+  width: 100%;
+  font-style: italic;
+  font-family: inherit;
+  color: $primary-color;
+
+  &:focus-visible {
+    outline: 2px solid $secondary-color;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
 .card {
   display: flex;
   padding: 10px;
