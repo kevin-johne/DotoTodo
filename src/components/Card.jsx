@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { AppContext } from "../store/context";
 import { dispatchToggle } from "../store/store";
+import { getHueByPos } from "../hue";
 
 export const Card = function ({ up, down,item }) {
   const {dispatch} = useContext(AppContext);
 
-  const startHue = 280;
-  const hue = startHue - item.pos * 10;
   return (
-    <div className="card" style={{backgroundColor: `hsl(${hue}, 100%, 72%)`}}>
+    <div className="card" style={{backgroundColor: `hsl(${getHueByPos(item.pos)}, 100%, 72%)`}}>
       <input
         type="checkbox"
         id={item.name}

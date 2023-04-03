@@ -39,7 +39,6 @@ h1 {
   color: white;
   background-color: $secondary-color;
   border: solid 1px $primary-color;
-  margin: 10px;
 
   &:hover {
     box-shadow: 1px 1px 8px $primary-color;
@@ -87,12 +86,18 @@ h1 {
 }
 
 .list {
+  display: flex;
+  flex-direction: column;
   position: relative;
+  padding: 10px;
 }
 
 .droppable {
-  position: absolute;
-  height: 20px;
+  min-height: 20px;
   width: 100%;
-  transform: translateY(-50%);
+
+  &:last-of-type {
+    flex-grow: 1;
+    min-height: 40px;
+  }
 }
