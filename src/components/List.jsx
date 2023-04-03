@@ -20,12 +20,7 @@ export const List = ({ heading, items }) => {
       dispatch(dispatchToggle(droppedItem.pos));
     }
 
-    // when lower than current position than it is always before the element
-    if (droppedItem.pos < currentPosition) {
-      dispatch(dispatchMove(droppedItem.pos, currentPosition - 1));
-    } else {
-      dispatch(dispatchMove(droppedItem.pos, currentPosition));
-    }
+    dispatch(dispatchMove(droppedItem.pos, currentPosition));
   };
 
   /**
@@ -67,7 +62,7 @@ export const List = ({ heading, items }) => {
           </div>
         );
       })}
-      <Droppable onDrop={(droppedItem) => dropped(droppedItem, items.length)} backgroundColor={`lightblue`}>{" "}</Droppable>
+      <Droppable onDrop={(droppedItem) => dropped(droppedItem, items.at(-1).pos)} backgroundColor={`lightblue`}>{" "}</Droppable>
     </div>
   );
 };

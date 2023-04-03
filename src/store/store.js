@@ -39,7 +39,7 @@ export const initState = {
 function move(state, currentPos, targetPos) {
   let todos = [...state.todos];
   const currentItem = todos[currentPos];
-  let index = targetPos > currentPos ? 0 : todos.length - 1;
+  let index = targetPos > currentPos ? currentPos + 1 : todos.length - 1;
 
   if(currentPos === targetPos) {
     return state;
