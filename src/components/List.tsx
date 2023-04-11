@@ -12,7 +12,7 @@ type Props = {
   items: Todo[]
 }
 
-export const List = ({ heading, items }: Props) => {
+export function List({ heading, items }: Props) {
   const { dispatch } = useContext(AppContext) as ContextType;
 
   /**

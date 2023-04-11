@@ -10,7 +10,7 @@ type Props = {
   item: Todo;
 };
 
-export const Card = function ({ up, down, item }: Props) {
+export function Card({ up, down, item }: Props) {
   const { dispatch } = useContext(AppContext) as ContextType;
 
   function onRemove() {

@@ -7,7 +7,7 @@ type Props = {
   backgroundColor: string
 }
 
-export const Droppable = function ({ onDrop, children, backgroundColor }: Props) {
+export function Droppable({ onDrop, children, backgroundColor }: Props) {
   const [ref, isOver, droppedItem, reset] = useDroppable();
 
   const styled = {
