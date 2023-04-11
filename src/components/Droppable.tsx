@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Todo } from "../types/store";
 
-export const Droppable = function ({ onDrop, children, backgroundColor }) {
+type Props = {
+  onDrop: (item: Todo) => void,
+  children: React.ReactNode
+  backgroundColor: string
+}
+
+export const Droppable = function ({ onDrop, children, backgroundColor }: Props) {
   const [ref, isOver, droppedItem, reset] = useDroppable();
 
   const styled = {
@@ -24,7 +31,7 @@ export const Droppable = function ({ onDrop, children, backgroundColor }) {
   );
 };
 
-export const useDroppable = () => {
+export function useDroppable(): [React.MutableRefObject<null>, Boolean, Todo | null, () => void ] {
   const dropZone = useRef(null);
   const [isOver, setIsOver] = useState(false);
   const [droppedItem, setDroppedItem] = useState(null);
@@ -32,31 +39,34 @@ export const useDroppable = () => {
   const reset = () => setDroppedItem(null);
 
   useEffect(() => {
-    const node = dropZone.current;
+    const node = dropZone.current as HTMLElement | null;
 
     if (node === null) {
       return;
     }
 
-    const onDrop = (event) => {
-      const unparsedItem = event.dataTransfer.getData("application/json");
+    const onDrop = (event: DragEvent) => {
+      const unparsedItem = event.dataTransfer?.getData("application/json");
+      if (!unparsedItem) {
+        return;
+      }
       const item = JSON.parse(unparsedItem);
       setDroppedItem(item);
       setIsOver(false);
       event.preventDefault();
     };
 
-    const onDragOver = (event) => {
+    const onDragOver = (event: DragEvent) => {
       event.preventDefault();
       setIsOver(true);
     };
 
-    const onLeave = (event) => {
+    const onLeave = (event: DragEvent) => {
       event.preventDefault();
       setIsOver(false);
     };
 
-    const onEnter = (event) => {
+    const onEnter = (event: DragEvent) => {
       event.preventDefault();
     };
 
@@ -73,5 +83,6 @@ export const useDroppable = () => {
       node.removeEventListener("dragleave", onLeave);
     };
   }, [dropZone]);
+
   return [dropZone, isOver, droppedItem, reset];
 };

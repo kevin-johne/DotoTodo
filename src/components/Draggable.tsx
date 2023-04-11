@@ -1,29 +1,42 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Todo } from "../types/store";
 
-export const Draggable = function ({ item, children }) {
-  const [ref, isDragging] = useDrag(item);
+type Props = {
+  item: Todo
+  children: React.ReactNode
+}
+
+/**
+ * Draggable implementation using an element wrapper
+ */
+export function Draggable({ item, children }: Props) {
+  const [ref] = useDrag(item);
 
   return <div ref={ref}>{children}</div>;
 };
 
-export const useDrag = function (item) {
+/**
+ * drag hook for an todo item
+ */
+export function useDrag(item: Todo): [React.MutableRefObject<null>, Boolean] {
   const draggableItem = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
-    const itemNode = draggableItem.current;
+    const itemNode = draggableItem.current as HTMLElement | null;
     if (itemNode === null) {
       return;
     }
-    const onDragStart = (event) => {
-      event.dataTransfer.setData("application/json", JSON.stringify(item));
+    const onDragStart = (event: DragEvent) => {
+      event.dataTransfer?.setData("application/json", JSON.stringify(item));
       setIsDragging(true);
     };
 
-    const onDragEnd = (event) => {
+    const onDragEnd = () => {
       setIsDragging(false);
     };
-    itemNode.setAttribute("draggable", true);
+
+    itemNode.setAttribute("draggable", "true");
     itemNode.addEventListener("dragstart", onDragStart);
     itemNode.addEventListener("dragend", onDragEnd);
     return () => {

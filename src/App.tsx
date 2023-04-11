@@ -3,9 +3,10 @@ import { List } from "./components/List";
 import { reducer, initState, dispatchAdd } from "./store/store";
 import { AppContext } from "./store/context";
 
-export const App = function () {
+export function App () {
   const [state, dispatch] = useReducer(reducer, initState);
   const [newItem, setNewItem] = useState("");
+
   const { todos } = state;
   const backlogItems = todos.filter(({ checked }) => checked === false);
   const doneItems = todos.filter(({ checked }) => checked === true);
@@ -18,7 +19,7 @@ export const App = function () {
     [state, dispatch]
   );
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (newItem !== "") {
       dispatch(dispatchAdd(newItem));
@@ -31,7 +32,7 @@ export const App = function () {
       <div className="app">
         <h1>
           A To Do App <br />
-          <span className="subtitle">with drag and drop</span>{" "}
+          <span className="subtitle">with drag and drop</span>
         </h1>
 
         <form onSubmit={onSubmit}>

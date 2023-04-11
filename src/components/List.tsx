@@ -1,20 +1,24 @@
 import { Droppable } from "./Droppable";
 import { Draggable } from "./Draggable";
 import { Card } from "./Card";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AppContext } from "../store/context";
 import { dispatchMove, dispatchToggle } from "../store/store";
 import { getHueByPos } from "../hue";
+import { ContextType, Todo } from "../types/store";
 
-export const List = ({ heading, items }) => {
-  const { dispatch } = useContext(AppContext);
+type Props = {
+  heading: string
+  items: Todo[]
+}
+
+export const List = ({ heading, items }: Props) => {
+  const { dispatch } = useContext(AppContext) as ContextType;
 
   /**
    * Item dropped with in the list, change status not supported
-   * @param {object} droppedItem
-   * @param {number} currentPosition
    */
-  const dropped = (droppedItem, currentPosition) => {
+  function dropped(droppedItem: Todo, currentPosition: number) {
     // we dropped the item in the other list
     if(items.length === 0 || items[0].checked !== droppedItem.checked) {
       dispatch(dispatchToggle(droppedItem.pos));
@@ -25,9 +29,8 @@ export const List = ({ heading, items }) => {
 
   /**
    * Item moved up by one
-   * @param {object} item
    */
-  const up = (item) => {
+  function up(item: Todo) {
     const index = items.findIndex(({ pos }) => item.pos === pos);
 
     if (index !== 0) {
@@ -37,9 +40,8 @@ export const List = ({ heading, items }) => {
 
   /**
    * Item moved down by one
-   * @param {object} item
    */
-  const down = (item) => {
+  function down(item: Todo) {
     const index = items.findIndex(({ pos }) => item.pos === pos);
     if (index + 1 !== items.length) {
       dispatch(dispatchMove(item.pos, items[index + 1].pos));
@@ -52,7 +54,7 @@ export const List = ({ heading, items }) => {
       {items.map((item) => {
         return (
           <div key={item.pos}>
-            <Droppable onDrop={(droppedItem) => dropped(droppedItem, item.pos)} backgroundColor={`hsl(${getHueByPos(item.pos)}, 100%, 72%)`}>
+            <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, item.pos - 1)} backgroundColor={`hsl(${getHueByPos(item.pos)}, 100%, 72%)`}>
               {" "}
             </Droppable>
             <Draggable item={item}>
@@ -62,7 +64,7 @@ export const List = ({ heading, items }) => {
           </div>
         );
       })}
-      <Droppable onDrop={(droppedItem) => dropped(droppedItem, items.at(-1).pos)} backgroundColor={`lightblue`}>{" "}</Droppable>
+      <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, items.at(-1)?.pos || 0)} backgroundColor={`lightblue`}>{" "}</Droppable>
     </div>
   );
 };

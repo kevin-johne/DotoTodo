@@ -1,3 +1,4 @@
+import { Action, State } from "../types/store";
 
 export const initState = {
   todos: [
@@ -32,11 +33,8 @@ export const initState = {
 /**
  * Generic move an item up or down within a list,
  * receives the current position and a target position the item should be next;
- * @param {object} state
- * @param {number} currentPos
- * @param {number} targetPos
  */
-function move(state, currentPos, targetPos) {
+function move(state: State, currentPos: number, targetPos: number) {
   let todos = [...state.todos];
   const currentItem = todos[currentPos];
   let index = targetPos > currentPos ? currentPos + 1 : todos.length - 1;
@@ -73,7 +71,7 @@ function move(state, currentPos, targetPos) {
   }
 
   todos = todos.sort((a, b) => {
-    return a.pos > b.pos;
+    return a.pos - b.pos;
   });
 
   return {
@@ -84,11 +82,8 @@ function move(state, currentPos, targetPos) {
 
 /**
  * toggle the state of an item
- * @param {object} state
- * @param {number} currentPos
- * @returns
  */
-function toggle(state, currentPos) {
+function toggle(state: State, currentPos: number): State {
   if (currentPos < 0 || state.todos.length <= currentPos) return state;
 
   const todos = [...state.todos];
@@ -102,11 +97,8 @@ function toggle(state, currentPos) {
 
 /**
  * add a new item to the end of the list
- * @param {object} state 
- * @param {string} name 
- * @returns 
  */
-function add(state, name) {
+function add(state:State, name: string) {
   return {
     ...state,
     todos: [
@@ -122,11 +114,8 @@ function add(state, name) {
 
 /**
  * removes the item from the list
- * @param {object} state 
- * @param {number} pos 
- * @returns 
  */
-function remove(state, pos) {
+function remove(state: State, pos: number) {
   const copy = [...state.todos];
   copy.splice(pos, 1);
 
@@ -140,17 +129,17 @@ function remove(state, pos) {
   }
 }
 
-export function dispatchMove(currentPostion, newPosition) {
+export function dispatchMove(currentPosition: number, newPosition: number): Action {
   return {
     type: "move",
     payload: {
-      currentPostion,
+      currentPosition,
       newPosition,
     },
   };
 }
 
-export function dispatchToggle(currentPosition) {
+export function dispatchToggle(currentPosition: number): Action {
   return {
     type: "toggle",
     payload: {
@@ -159,7 +148,7 @@ export function dispatchToggle(currentPosition) {
   };
 }
 
-export function dispatchAdd(name) {
+export function dispatchAdd(name: string): Action {
   return {
     type: "add",
     payload: {
@@ -168,7 +157,7 @@ export function dispatchAdd(name) {
   };
 }
 
-export function dispatchRemove(pos) {
+export function dispatchRemove(pos: number): Action {
   return {
     type: "remove",
     payload: {
@@ -177,11 +166,11 @@ export function dispatchRemove(pos) {
   }
 }
 
-export function reducer(state, action) {
+export function reducer(state: State, action: Action): State {
   if (action.type === "move") {
     return move(
       state,
-      action.payload.currentPostion,
+      action.payload.currentPosition,
       action.payload.newPosition
     );
   }
