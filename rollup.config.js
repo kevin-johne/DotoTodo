@@ -5,7 +5,7 @@ export default {
   plugins: [
     copy({
       targets: [
-        { src: 'host/index.html', dest: 'dist/' },
+        { src: 'host/index.html', dest: 'public/' },
       ]
     })
   ]
