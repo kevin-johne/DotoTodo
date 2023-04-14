@@ -1,11 +1,11 @@
 import copy from 'rollup-plugin-copy'
 
 export default {
-  input: "host/index.js",
+  input: "src/index.js",
   plugins: [
     copy({
       targets: [
-        { src: 'host/index.html', dest: 'public/' },
+        { src: 'src/index.html', dest: '../../public/' },
       ]
     })
   ]

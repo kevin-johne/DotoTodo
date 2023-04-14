@@ -1,4 +1,5 @@
 import { Action, State } from "../types/store";
+import { move as coreMove } from "@core/index";
 
 export const initState = {
   todos: [
@@ -30,49 +31,11 @@ export const initState = {
   ],
 };
 
-/**
- * Generic move an item up or down within a list,
- * receives the current position and a target position the item should be next;
- */
+
 function move(state: State, currentPos: number, targetPos: number) {
   let todos = [...state.todos];
-  const currentItem = todos[currentPos];
-  let index = targetPos > currentPos ? currentPos + 1 : todos.length - 1;
 
-  if(currentPos === targetPos) {
-    return state;
-  }
-
-  for (; index < todos.length && index >= 0; ) {
-    const nextItem = todos[index];
-    if (targetPos > currentPos) {
-      if (nextItem.pos <= currentPos) {
-        index++;
-        continue;
-      }
-      if (nextItem.pos > targetPos) break;
-    } else {
-      if (nextItem.pos > currentPos) {
-        index--;
-        continue;
-      }
-      if (nextItem.pos < targetPos) break;
-    }
-
-    if (
-      currentItem.name !== nextItem.name &&
-      currentItem.checked === nextItem.checked
-    ) {
-      const foundItemPos = currentItem.pos;
-      currentItem.pos = nextItem.pos;
-      nextItem.pos = foundItemPos;
-    }
-    targetPos > currentPos ? index++ : index--;
-  }
-
-  todos = todos.sort((a, b) => {
-    return a.pos - b.pos;
-  });
+  todos = coreMove(todos, currentPos, targetPos);
 
   return {
     ...state,
@@ -98,7 +61,7 @@ function toggle(state: State, currentPos: number): State {
 /**
  * add a new item to the end of the list
  */
-function add(state:State, name: string) {
+function add(state: State, name: string) {
   return {
     ...state,
     todos: [
@@ -119,17 +82,20 @@ function remove(state: State, pos: number) {
   const copy = [...state.todos];
   copy.splice(pos, 1);
 
-  for(let index = pos; index < copy.length; index++) {
+  for (let index = pos; index < copy.length; index++) {
     copy[index].pos = copy[index].pos - 1;
   }
 
   return {
     ...state,
-    todos: copy
-  }
+    todos: copy,
+  };
 }
 
-export function dispatchMove(currentPosition: number, newPosition: number): Action {
+export function dispatchMove(
+  currentPosition: number,
+  newPosition: number
+): Action {
   return {
     type: "move",
     payload: {
@@ -161,9 +127,9 @@ export function dispatchRemove(pos: number): Action {
   return {
     type: "remove",
     payload: {
-      pos
-    }
-  }
+      pos,
+    },
+  };
 }
 
 export function reducer(state: State, action: Action): State {
@@ -180,7 +146,7 @@ export function reducer(state: State, action: Action): State {
   if (action.type === "add") {
     return add(state, action.payload.name);
   }
-  if(action.type === "remove") {
+  if (action.type === "remove") {
     return remove(state, action.payload.pos);
   }
   return state;

@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { AppContext } from "../store/context";
 import { dispatchRemove, dispatchToggle } from "../store/store";
-import { getHueByPos } from "../hue";
-import { ContextType, Todo } from "../types/store";
+import { ContextType } from "../types/store";
+import { Todo } from "@core/types/types";
+import { getHueByPos } from "@core/hue";
 
 type Props = {
   up: () => void;

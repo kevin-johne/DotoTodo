@@ -1,3 +1,5 @@
+import { Todo } from "@core/types/types"
+
 export type ContextType = {
   state: State,
   dispatch: (value: Action) => void;
@@ -5,12 +7,6 @@ export type ContextType = {
 
 export type State = {
   todos: Todo[]
-}
-
-export type Todo = {
-  checked: boolean,
-  name: string,
-  pos: number
 }
 
 export type Action = {

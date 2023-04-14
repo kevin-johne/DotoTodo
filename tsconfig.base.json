@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "rootDir": ".",
+    "target": "es2015",
+    "lib": ["dom", "dom.iterable"],
+    "sourceMap": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,9 +16,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["libs/core/src/*"],
+      "@core/types/*": ["libs/core/src/types/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

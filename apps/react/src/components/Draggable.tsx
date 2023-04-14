@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Todo } from "../types/store";
+import { Todo } from "@core/types/types";
 
 type Props = {
   item: Todo
