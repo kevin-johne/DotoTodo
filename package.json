@@ -3,29 +3,25 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
-  "dependencies": {
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "react-scripts": "5.0.1",
-    "sass": "^1.58.3"
-  },
-  "devDependencies": {
-    "@babel/runtime": "7.13.8",
-    "@types/react": "^18.0.34",
-    "@types/react-dom": "^18.0.11",
-    "typescript": "^4.0.3"
-  },
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "run-p start:**",
+    "build": "npm-run-all build:*",
+    "build:host": "rollup -c rollup.config.js",
+    "build:react": "cd react-app && npm run build",
+    "start:host": "http-server ./dist/",
+    "start:react": "cd react-app && npm run start"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.20.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "http-server": "^14.1.1"
+  }
 }
