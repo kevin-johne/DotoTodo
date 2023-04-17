@@ -9,4 +9,10 @@ export default defineConfig({
     outDir: "../../public/react/"
   },
   base: '/react/',
+  server: {
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: ['.', '../../libs'],
+    },
+  },
 });
