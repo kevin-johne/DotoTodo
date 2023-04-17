@@ -15,17 +15,21 @@ type Props = {
 
 export function List({ heading, items }: Props) {
   const { dispatch } = useContext(AppContext) as ContextType;
-
+  const lastItem = items.at(-1);
+  const lastItemsPosition = lastItem ? lastItem.pos + 1 : 0;
   /**
    * Item dropped with in the list, change status not supported
    */
-  function dropped(droppedItem: Todo, currentPosition: number) {
+  function dropped(droppedItem: Todo, targetPosition: number) {
     // we dropped the item in the other list
     if(items.length === 0 || items[0].checked !== droppedItem.checked) {
       dispatch(dispatchToggle(droppedItem.pos));
     }
 
-    dispatch(dispatchMove(droppedItem.pos, currentPosition));
+    // the dropped area is on both sides of the list items: example 0 item 1 item 2 item 3 ...
+    // when items new position is higher an offset of 1 is required
+    const offset = droppedItem.pos < targetPosition ? -1 : 0;
+    dispatch(dispatchMove(droppedItem.pos, targetPosition + offset));
   };
 
   /**
@@ -55,7 +59,7 @@ export function List({ heading, items }: Props) {
       {items.map((item) => {
         return (
           <div key={item.pos}>
-            <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, item.pos - 1)} backgroundColor={`hsl(${getHueByPos(item.pos)}, 100%, 72%)`}>
+            <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, item.pos)} backgroundColor={`hsl(${getHueByPos(item.pos)}, 100%, 72%)`}>
               {" "}
             </Droppable>
             <Draggable item={item}>
@@ -65,7 +69,7 @@ export function List({ heading, items }: Props) {
           </div>
         );
       })}
-      <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, items.at(-1)?.pos || 0)} backgroundColor={`lightblue`}>{" "}</Droppable>
+      <Droppable onDrop={(droppedItem: Todo) => dropped(droppedItem, lastItemsPosition)} backgroundColor={`lightblue`}>{" "}</Droppable>
     </div>
   );
 };

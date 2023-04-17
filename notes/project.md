@@ -21,4 +21,6 @@ server: {
   },
 ```
 
+Using Vitest as it utilises the vite configuration, minimises the need for another configuration compared to using Jest within this project. Syntax seems to be similar.
+
 For the size of project vite with rollup is compiling a lot fast than webpack. I have some insights that the fastest is Rspack and is the most flexible, it is the same implementation as webpack but compiled by rust. The Team building Rspack, were first building the vite implementation in Rust, but thought that rollup is not flexible enough.

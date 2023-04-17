@@ -118,4 +118,34 @@ test( 'should move item one position lower' , () => {
   assert.equal(list[2].pos, 2);
 });
 
+test( 'should not move a position' , () => {
+  const list = [
+    {
+      pos: 0,
+      name: 'react',
+      checked: false
+    },
+    {
+      pos: 1,
+      name: 'angular',
+      checked: false
+    },
+    {
+      pos: 2,
+      name: 'vue',
+      checked: false
+    }
+  ] as Todo[];
+
+  move(list, 2, 2);
+
+  assert.equal(list[0].name, 'react');
+  assert.equal(list[0].pos, 0);
+  assert.equal(list[1].name, 'angular');
+  assert.equal(list[1].pos, 1);
+  assert.equal(list[2].name, 'vue');
+  assert.equal(list[2].pos, 2);
+});
+
+
 
