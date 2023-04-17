@@ -7,14 +7,14 @@ export * from "./hue";
  * receives the current position and a target position the item should be next;
  */
 export function move(todos: Todo[], currentPos: number, targetPos: number): Todo[] {
-  const currentItem = todos[currentPos];
-  let index = targetPos > currentPos ? currentPos + 1 : todos.length - 1;
-
   if(currentPos === targetPos) {
     return todos;
   }
 
-  for (; index < todos.length && index >= 0; ) {
+  const currentItem = todos[currentPos];
+  let index = currentPos;
+
+  while (index < todos.length && index >= 0) {
     const nextItem = todos[index];
     if (targetPos > currentPos) {
       if (nextItem.pos <= currentPos) {
