@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "checked": true,
+      "name": "React",
+      "pos": 0
+    },
+    {
+      "checked": false,
+      "name": "Angular",
+      "pos": 1
+    },
+    {
+      "checked": false,
+      "name": "Svelte",
+      "pos": 2
+    },
+    {
+      "checked": false,
+      "name": "Vue",
+      "pos": 3
+    },
+    {
+      "checked": false,
+      "name": "Qwik",
+      "pos": 4
+    }
+  ]
+}

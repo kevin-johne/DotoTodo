@@ -1,5 +1,5 @@
 import { App } from "./App";
-import "./style.scss";
+import "@core/style.scss";
 import { createElement } from "react";
 import ReactDOM from "react-dom";
 

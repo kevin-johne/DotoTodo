@@ -4,8 +4,12 @@ import { Todo } from "./types/types";
  * Generic move an item up or down within a list,
  * receives the current position and a target position the item should be next;
  */
-export function move(todos: Todo[], currentPos: number, targetPos: number): Todo[] {
-  if(currentPos === targetPos) {
+export function move(
+  todos: Todo[],
+  currentPos: number,
+  targetPos: number
+): Todo[] {
+  if (currentPos === targetPos) {
     return todos;
   }
 
@@ -44,4 +48,19 @@ export function move(todos: Todo[], currentPos: number, targetPos: number): Todo
   });
 
   return todos;
+}
+
+export function toggle(todos: Todo[], currentPos: number) {
+  if (currentPos < 0 || todos.length <= currentPos) return todos;
+  todos[currentPos].checked = !todos[currentPos].checked;
+  return todos;
+}
+
+export function remove(todos: Todo[], pos: number) {
+  todos.splice(pos, 1);
+
+  for (let index = pos; index < todos.length; index++) {
+    todos[index].pos = todos[index].pos - 1;
+  }
+return todos;
 }

@@ -1,5 +1,5 @@
 import { test, assert } from 'vitest'
-import { move } from "./index";
+import { move } from "./list";
 import { Todo } from './types/types';
 
 test( 'should move item from lower to higher position' , () => {

@@ -1,45 +1,13 @@
 import { Action, State } from "../types/store";
-import { move as coreMove } from "@core/index";
+import * as core from "@core/index";
+import data from "@data/init.json";
 
-export const initState = {
-  todos: [
-    {
-      checked: true,
-      name: "React",
-      pos: 0,
-    },
-    {
-      checked: false,
-      name: "Angular",
-      pos: 1,
-    },
-    {
-      checked: false,
-      name: "Svelte",
-      pos: 2,
-    },
-    {
-      checked: false,
-      name: "Vue",
-      pos: 3,
-    },
-    {
-      checked: false,
-      name: "Qwik",
-      pos: 4,
-    },
-  ],
-};
-
+export const initState = data;
 
 function move(state: State, currentPos: number, targetPos: number) {
-  let todos = [...state.todos];
-
-  todos = coreMove(todos, currentPos, targetPos);
-
   return {
     ...state,
-    todos,
+    todos: [...core.move(state.todos, currentPos, targetPos)],
   };
 }
 
@@ -47,14 +15,10 @@ function move(state: State, currentPos: number, targetPos: number) {
  * toggle the state of an item
  */
 function toggle(state: State, currentPos: number): State {
-  if (currentPos < 0 || state.todos.length <= currentPos) return state;
-
-  const todos = [...state.todos];
-  todos[currentPos].checked = !todos[currentPos].checked;
-
+  const todos = core.toggle(state.todos, currentPos);
   return {
     ...state,
-    todos,
+    todos: [...todos],
   };
 }
 
@@ -79,16 +43,9 @@ function add(state: State, name: string) {
  * removes the item from the list
  */
 function remove(state: State, pos: number) {
-  const copy = [...state.todos];
-  copy.splice(pos, 1);
-
-  for (let index = pos; index < copy.length; index++) {
-    copy[index].pos = copy[index].pos - 1;
-  }
-
   return {
     ...state,
-    todos: copy,
+    todos: [...core.remove(state.todos, pos)],
   };
 }
 

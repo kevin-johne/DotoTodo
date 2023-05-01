@@ -18,8 +18,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "@data/*": ["data/*"],
       "@core/*": ["libs/core/src/*"],
-      "@core/types/*": ["libs/core/src/types/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

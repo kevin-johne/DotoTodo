@@ -9,9 +9,4 @@ export default defineConfig({
     outDir: "../../public/react/"
   },
   base: '/react/',
-  server: {
-    fs: {
-      allow: ['.', '../../libs'],
-    },
-  },
 });
